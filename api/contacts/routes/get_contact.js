@@ -9,7 +9,7 @@ router.route('/:id')
   .get((req, res) => {
     
     Contact.findOne({_id: req.params.id}, (err, contact) => {
-      if (err) res.status(40).json(err);
+      if (err) res.status(400).json(err);
       
       if (!contact) res.status(404).json({message: 'Contact not found.'});
     
