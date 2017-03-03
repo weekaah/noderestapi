@@ -1,5 +1,9 @@
 'use strict';
 
+// load environment variables 
+// ====================================
+require('dotenv').config();
+
 // grab dependecies 
 // ====================================
 const express = require('express'),
@@ -7,7 +11,12 @@ const express = require('express'),
       hostname = 'localhost',
       port = 3001,
       bodyParser = require('body-parser'),
-      cors = require('cors');
+      cors = require('cors'),
+      mongoose = require('mongoose'),
+      uriUtil = require('mongodb-uri'),
+      mongodbUri = process.env.DB_URI,
+      mongooseUri = uriUtil.formatMongoose(mongodbUri),
+      dbOptions = {};
       
 // load dummy data 
 // ====================================
@@ -91,5 +100,10 @@ app.delete('/api/contacts/:id', (request, response) => {
 // start server
 // ====================================
 app.listen(port, hostname, () => {
-  console.log(`Server is running at http://${hostname}:${port}`);
+  mongoose.connect(mongooseUri, dbOptions, (err) => {
+    if (err) {
+      console.log(err);
+    }
+    console.log(`Server is running at http://${hostname}:${port}`);
+  });
 });
