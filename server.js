@@ -101,6 +101,7 @@ app.use(cors());
 // ====================================
 app.use('/api/contacts', require('./api/contacts/routes/post_contact'));
 app.use('/api/contacts', require('./api/contacts/routes/get_contacts'));
+app.use('/api/contacts', require('./api/contacts/routes/get_contact'));
 
 // start server
 // ====================================
